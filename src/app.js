@@ -2,23 +2,14 @@ const express = require("express");
 
 const app = express();
 
-//* this will only handle the GET call to /user
 app.get("/user", (req, res) => {
+  console.log(req.query);
   res.send({ firstName: "Rajnish", lastName: "Pandey" });
 });
 
-app.post("/user", (req, res) => {
-  //* saving data to DB
-  res.send("Data successfully saved to database");
-});
-
-app.delete("/user", (req, res) => {
-  res.send("Data successfully deleted from database");
-});
-
-//* this will match all the HTTP method API calls to /test
-app.use("/test", (req, res) => {
-  res.send("Hello from the server!");
+app.get("/user/:userId/:name/:password", (req, res) => {
+  console.log(req.params);
+  res.send({ firstName: "Rajnish", lastName: "Pandey" });
 });
 
 app.listen(3000, () => {
