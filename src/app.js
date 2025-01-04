@@ -2,29 +2,22 @@ const express = require("express");
 
 const app = express();
 
-const { adminAuth } = require("./middlewares/auth");
-const { userAuth } = require("./middlewares/auth");
+app.get("/getUserData", (req, res) => {
+  try {
+    //* Logic for DB call and get user data
 
-app.use("/admin", adminAuth);
-
-app.get("/user", userAuth, (req, res) => {
-  res.send("User data sent!");
+    throw new Error("Not implemented");
+    res.send("User data sent!");
+  } catch (err) {
+    res.status(500).send("Some error contact support team");
+  }
 });
 
-app.post("/user/login", (req, res) => {
-  res.send("Login successful!");
-});
-
-app.get("/user/data", userAuth, (req, res) => {
-  res.send("User data sent!");
-});
-
-app.get("/admin/getAllData", (req, res) => {
-  res.send("All data sent!");
-});
-
-app.get("/admin/deleteUser", (req, res) => {
-  res.send("User deleted successfully!");
+app.use("/", (err, req, res, next) => {
+  if (err) {
+    // Log your error
+    res.status(500).send("Something went wrong");
+  }
 });
 
 app.listen(3000, () => {
