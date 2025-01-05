@@ -29,12 +29,6 @@ app.get("/user", async (req, res) => {
     } else {
       res.send(user);
     }
-    //   const users = await User.find({ emailId: userEmail });
-    //   if (users.length === 0) {
-    //     res.status(404).send("User not found");
-    //   } else {
-    //     res.send(users);
-    //   }
   } catch (err) {
     res.status(400).send("Something went wrong");
   }
@@ -75,7 +69,6 @@ app.delete("/user", async (req, res) => {
 
   try {
     const user = await User.findByIdAndDelete({ _id: userId });
-    // const user = await User.findByIdAndDelete(userId);
     res.send("User deleted successfully!!");
   } catch (err) {
     res.status(400).send("Something went wrong");
