@@ -2,6 +2,7 @@ const express = require("express");
 const connectDB = require("./config/database");
 const app = express();
 const User = require("./Models/user");
+const { default: mongoose } = require("mongoose");
 
 app.use(express.json());
 
@@ -36,6 +37,26 @@ app.get("/user", async (req, res) => {
     //   }
   } catch (err) {
     res.status(400).send("Something went wrong");
+  }
+});
+
+//* Get user by Id
+app.get("/getUserById/:id", async (req, res) => {
+  const userId = req.params.id;
+
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return res.status(400).send("Invalid user ID");
+  }
+
+  try {
+    const user = await User.findById({ _id: userId });
+    if (!user) {
+      res.status(404).send("User not found");
+    } else {
+      res.send(user);
+    }
+  } catch (err) {
+    res.status(404).status("User not found");
   }
 });
 
