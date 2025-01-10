@@ -73,6 +73,13 @@ app.get("/profile", userAuth, async (req, res) => {
   }
 });
 
+app.post("/sendConnectionRequest", userAuth, async (req, res) => {
+  //* Sending a connection request
+  console.log("Sending a connection request");
+
+  res.send("Connection request sent!");
+});
+
 connectDB()
   .then(() => {
     console.log("Database connection established...");
