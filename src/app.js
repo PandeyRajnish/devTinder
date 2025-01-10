@@ -67,11 +67,16 @@ app.get("/profile", async (req, res) => {
   const cookies = req.cookies;
 
   const { token } = cookies;
+
   //* Validate my token
+  const decodedMessage = await jwt.verify(token, "DEV@Tinder$790");
+  console.log("decodedMessage", decodedMessage);
+  const { _id } = decodedMessage;
+  console.log("Logged In user is: " + _id);
 
-  console.log(cookies);
+  const user = await User.findById(_id);
 
-  res.send("Reading Cookies");
+  res.send(user);
 });
 
 //* Get user by email
