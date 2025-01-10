@@ -48,11 +48,8 @@ app.post("/login", async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (isPasswordValid) {
-      //* Create a JWT Token
-
       const token = await user.getJWT();
 
-      //*  Add the tokent to the cookie and send the response back to the user
       res.cookie("token", token, {
         expires: new Date(Date.now() + 8 * 3600000), // * Cookie will expire in 8 hours
       });
