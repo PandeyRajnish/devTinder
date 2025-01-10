@@ -51,7 +51,7 @@ app.post("/login", async (req, res) => {
       //* Create a JWT Token
 
       const token = await jwt.sign({ _id: user._id }, "DEV@Tinder$790", {
-        expiresIn: "0d",
+        expiresIn: "7d",
       });
 
       //*  Add the tokent to the cookie and send the response back to the user
