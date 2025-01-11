@@ -35,7 +35,46 @@ const validateProfileEditData = (req) => {
   return isEditAllowed;
 };
 
+const validateEditData = (req) => {
+  const { firstName, lastName, emailId, photoUrl, about, skills, age, gender } =
+    req.body;
+
+  // Validation rules
+  if (skills?.length > 50) {
+    throw new Error("Skills can't be more than 50!");
+  }
+
+  if (about?.length > 200) {
+    throw new Error("About field can't be more than 200 characters!");
+  }
+
+  if (firstName?.length < 2 || firstName?.length > 50) {
+    throw new Error("First Name should be between 2 and 50 characters long!");
+  }
+
+  if (lastName?.length < 2 || lastName?.length > 50) {
+    throw new Error("Last Name should be between 2 and 50 characters long!");
+  }
+
+  if (age < 18 || age > 100) {
+    throw new Error("Age should be between 18 and 100!");
+  }
+
+  if (!["male", "female", "others"].includes(gender)) {
+    throw new Error("Gender data is not valid!");
+  }
+
+  if (!validator.isEmail(emailId)) {
+    throw new Error("Email is not valid!");
+  }
+
+  if (!validator.isURL(photoUrl)) {
+    throw new Error("Please enter a valid URL!");
+  }
+};
+
 module.exports = {
   validateSignUpData,
   validateProfileEditData,
+  validateEditData,
 };
