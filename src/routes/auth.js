@@ -7,15 +7,12 @@ const authRouter = express.Router();
 
 authRouter.post("/signup", async (req, res) => {
   try {
-    //* Validation of data
     validateSignUpData(req);
 
     const { firstName, lastName, emailId, password } = req.body;
 
-    //* Encrypt the password
     const passwordHash = await bcrypt.hash(password, 10);
 
-    //* Creating a new instance of the user model
     const user = new User({
       firstName,
       lastName,
